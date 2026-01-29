@@ -2,11 +2,15 @@ import requests
 import re
 import json
 
+HEADERS = {
+    "User-Agent": "Mozilla/5.0"
+}
+
 RUSSIA1_PAGE = "https://smotrim.ru/channel/1"
 RUSSIA24_PAGE = "https://smotrim.ru/channel/3"
 
 def extract_m3u8(url):
-    html = requests.get(url).text
+    html = requests.get(url, headers=HEADERS).text
     match = re.search(r'https://[^"]+\.m3u8[^"]*', html)
     return match.group(0) if match else ""
 
